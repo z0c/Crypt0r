@@ -15,8 +15,8 @@ namespace Crypt0r.Tests
                 const string key = "randomkey";
 
                 var result = Aes.Encrypt(value, key);
-
-                Assert.That(result, Is.TypeOf(typeof(string)));
+                
+                Assert.That(result, Is.TypeOf<string>());
             }
 
             [Test]
