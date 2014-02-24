@@ -9,6 +9,17 @@ namespace Crypt0r.Tests
         public class Encrypt
         {
             [Test]
+            public void ResultIsDifferentFromPlainText()
+            {
+                const string plainText = "password";
+                const string key = "randomkey";
+
+                var result = Aes.Encrypt(plainText, key);
+
+                Assert.That(result, Is.Not.EqualTo(plainText));
+            }
+
+            [Test]
             public void ReturnsString_WhenArgsAreValid()
             {
                 const string value = "password";
@@ -17,32 +28,55 @@ namespace Crypt0r.Tests
                 var result = Aes.Encrypt(value, key);
                 
                 Assert.That(result, Is.TypeOf<string>());
-            }
-
-            [Test]
-            public void ResultIsDifferentFromValue()
-            {
-                const string value = "password";
-                const string key = "randomkey";
-
-                var result = Aes.Encrypt(value, key);
-
-                Assert.That(result, Is.Not.EqualTo(value));
-            }
-
-            [Test]
-            public void ThrowArgumentNullException_WhenKeyIsEmpty()
-            {                
-                const string value = "password";
-
-                Assert.Throws(Is.TypeOf<ArgumentNullException>()
-                    .And.Message.StringContaining("Parameter name: key"),
-                    () => Aes.Encrypt(value, string.Empty));
-            }
+            }            
 
             [Test]
             public void ThrowArgumentNullException_WhenKeyIsNull()
             {                
+                const string plainText = "password";
+
+                Assert.Throws(Is.TypeOf<ArgumentNullException>()
+                    .And.Message.StringContaining("Parameter name: key"),
+                    () => Aes.Encrypt(plainText, null));
+            }
+
+            [Test]
+            public void ThrowArgumentNullException_WhenPlainTextIsNull()
+            {
+                const string key = "key";
+
+                Assert.Throws(Is.TypeOf<ArgumentNullException>()
+                    .And.Message.StringContaining("Parameter name: plainText"),
+                    () => Aes.Encrypt(null, key));
+            }
+        }
+
+        public class Decrypt
+        {
+            [Test]
+            public void ReturnsString_WhenArgsAreValid()
+            {
+                const string cypherText = "password";
+                const string key = "randomkey";
+
+                var result = Aes.Decrypt(cypherText, key);
+
+                Assert.That(result, Is.TypeOf<string>());
+            }
+
+            [Test]
+            public void ThrowArgumentNullException_WhenCypherTextIsNull()
+            {
+                const string key = "key";
+
+                Assert.Throws(Is.TypeOf<ArgumentNullException>()
+                    .And.Message.StringContaining("Parameter name: cypherText"),
+                    () => Aes.Decrypt(null, key));
+            }
+
+            [Test]
+            public void ThrowArgumentNullException_WhenKeyIsNull()
+            {
                 const string value = "password";
 
                 Assert.Throws(Is.TypeOf<ArgumentNullException>()
@@ -50,25 +84,6 @@ namespace Crypt0r.Tests
                     () => Aes.Encrypt(value, null));
             }
 
-            [Test]
-            public void ThrowArgumentNullException_WhenValueIsEmpty()
-            {
-                const string key = "key";
-
-                Assert.Throws(Is.TypeOf<ArgumentNullException>()
-                    .And.Message.StringContaining("Parameter name: value"),
-                    () => Aes.Encrypt(string.Empty, key));
-            }
-
-            [Test]
-            public void ThrowArgumentNullException_WhenValueIsNull()
-            {
-                const string key = "key";
-
-                Assert.Throws(Is.TypeOf<ArgumentNullException>()
-                    .And.Message.StringContaining("Parameter name: value"),
-                    () => Aes.Encrypt(null, key));
-            }
         }
     }
 }

@@ -6,10 +6,10 @@ namespace Crypt0r
 {
     public static class Aes
     {
-        public static string Encrypt(string value, string key, int saltSize = 32)
-        {            
-            if (string.IsNullOrEmpty(value)) throw new ArgumentNullException("value");
-            if (string.IsNullOrEmpty(key)) throw new ArgumentNullException("key");
+        public static string Encrypt(string plainText, string key, int saltSize = 32)
+        {
+            if (plainText == null) throw new ArgumentNullException("plainText");
+            if (key == null) throw new ArgumentNullException("key");
 
             var derivationKey = new Rfc2898DeriveBytes(key, 32);
             var salt = derivationKey.Salt;
@@ -22,7 +22,7 @@ namespace Crypt0r
                 using (var csEncrypt = new CryptoStream(msEncrypt, encryptor, CryptoStreamMode.Write))
                 using (var swEncrypt = new StreamWriter(csEncrypt))
                 {
-                    swEncrypt.Write(value);
+                    swEncrypt.Write(plainText);
                     var bytes = msEncrypt.ToArray();
 
                     Array.Resize(ref salt, salt.Length + bytes.Length);
@@ -31,6 +31,14 @@ namespace Crypt0r
                     return Convert.ToBase64String(salt);
                 }
             }            
+        }
+
+        public static string Decrypt(string cypherText, string key, int saltSize = 32)
+        {
+            if (cypherText == null) throw new ArgumentNullException("cypherText");
+            if (key == null) throw new ArgumentNullException("key");
+
+            return cypherText;
         }
     }
 }
