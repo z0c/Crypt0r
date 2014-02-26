@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Security.Cryptography;
 using NUnit.Framework;
 
 namespace Crypt0r.Tests
@@ -31,7 +32,7 @@ namespace Crypt0r.Tests
             }            
 
             [Test]
-            public void ThrowArgumentNullException_WhenKeyIsNull()
+            public void ThrowsArgumentNullException_WhenKeyIsNull()
             {                
                 const string plainText = "password";
 
@@ -41,7 +42,7 @@ namespace Crypt0r.Tests
             }
 
             [Test]
-            public void ThrowArgumentNullException_WhenPlainTextIsNull()
+            public void ThrowsArgumentNullException_WhenPlainTextIsNull()
             {
                 const string key = "key";
 
@@ -71,7 +72,6 @@ namespace Crypt0r.Tests
                 const string key = "this is a random key";
 
                 var cipherText = Aes.Encrypt(plainText, key);
-                Console.WriteLine(cipherText);
                 var result = Aes.Decrypt(cipherText, key);
 
                 Assert.That(result, Is.EqualTo(plainText));
@@ -89,7 +89,7 @@ namespace Crypt0r.Tests
             }
 
             [Test]
-            public void ThrowArgumentNullException_WhenCipherTextIsNull()
+            public void ThrowsArgumentNullException_WhenCipherTextIsNull()
             {
                 const string key = "key";
 
@@ -99,7 +99,7 @@ namespace Crypt0r.Tests
             }
 
             [Test]
-            public void ThrowArgumentNullException_WhenKeyIsNull()
+            public void ThrowsArgumentNullException_WhenKeyIsNull()
             {
                 const string value = "password";
 
@@ -108,6 +108,18 @@ namespace Crypt0r.Tests
                     () => Aes.Encrypt(value, null));
             }
 
+            [Test]
+            public void ThrowsCryptographicException_WhenKeyIsDifferentFromOriginal()
+            {
+                const string plainText = "a plain text string";
+                const string encryptKey = "this is a random key";
+                const string decryptKey = "completelly different key";
+
+                var cipherText = Aes.Encrypt(plainText, encryptKey);
+
+                Assert.Throws(Is.TypeOf<CryptographicException>(),
+                    () => Aes.Decrypt(cipherText, decryptKey));
+            }
         }
     }
 }
