@@ -66,7 +66,7 @@ namespace Crypt0r.Tests
             }
 
             [Test]
-            public void Roundtrip()
+            public void ReturnsOriginalText_OnRountrip()
             {
                 const string plainText = "a plain text string";
                 const string key = "this is a random key";
