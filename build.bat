@@ -1,0 +1,1 @@
+powershell -NonInteractive -Command "& { Import-Module .\psake.psm1; Invoke-Psake .\build.ps1 %*; exit !($psake.build_success); }"

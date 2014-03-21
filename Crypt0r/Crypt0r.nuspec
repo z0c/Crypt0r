@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>Crypt0r</id>
+    <version>$version$</version>
+    <authors>Nuno Pereira</authors>  
+	  <owners>$author$</owners>
+    <projectUrl>https://github.com/z0c/Crypt0r</projectUrl>    
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <title>Crypt0r</title>
+	  <summary>Simple cryptography helper for .NET</summary>
+    <description>Simple cryptography wrapper for .NET</description>
+    <copyright>Copyright 2014</copyright>
+    <tags>Reversible Encryption AES Rijndael</tags>
+  </metadata>
+</package>

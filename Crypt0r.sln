@@ -5,6 +5,8 @@ VisualStudioVersion = 12.0.21005.1
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{18FD5997-ECE4-437F-9701-2E5C7AF9D9AA}"
 	ProjectSection(SolutionItems) = preProject
+		build.bat = build.bat
+		build.ps1 = build.ps1
 		README.md = README.md
 	EndProjectSection
 EndProject
