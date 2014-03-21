@@ -3,7 +3,6 @@ Properties {
 	$project = Split-Path $baseDir -Leaf
 	$artifactDir = "$baseDir\Build\Packages"
 	$version = "1.0.0"
-	$decription = "bla bla bla"
 }
 
 Task Default -Depends Build
