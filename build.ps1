@@ -20,7 +20,7 @@ Task Build -Depends Clean,RestorePackages {
 }
 Task Package -Depends Build {
 	if (!(Test-Path($artifactDir))) {
-		New-Item -ItemType Directory -Force -Path $artifactDir -Out $null
+		New-Item -ItemType Directory -Force -Path $artifactDir | Out-Null 
 	}
 	Exec { .\.nuget\NuGet pack $baseDir\$project\$project.csproj -OutputDirectory $artifactDir -Properties Configuration=Release -Version $version }
 }
